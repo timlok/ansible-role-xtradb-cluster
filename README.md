@@ -3,10 +3,11 @@
 За основу взята роль [https://github.com/cdelgehier/ansible-role-XtraDB-Cluster](https://github.com/cdelgehier/ansible-role-XtraDB-Cluster ) и немного актуализирована.
 
 В каталоге [roles](roles/) (на тестовом хосте путь /home/otus/ansible/xtradb) находятся роли:
-[01_tuning_OS](roles/01_tuning_OS) - Предварительная настройка ОС с последующей перезагрузкой.
-[02_ansible-role-XtraDB-Cluster](roles/02_ansible-role-XtraDB-Cluster) - Установка и настройка percona xtradb cluster.
-[create-otus-xtradb-cluster](roles/create-otus-xtradb-cluster) - Роль объединяющая в себе 01_tuning_OS и 02_ansible-role-XtraDB-Cluster, но почему-то падает в середине выполнения второй роли. Не стал разбираться с причинами.
-[delete_percona](roles/delete_percona) - Удаление со всеми хвостами percona xtradb cluster, может пригодится для последующей повторной установки.
+-  [01_tuning_OS](roles/01_tuning_OS) - Предварительная настройка ОС с последующей перезагрузкой.
+- [02_ansible-role-XtraDB-Cluster](roles/02_ansible-role-XtraDB-Cluster) - Установка и настройка percona xtradb cluster.
+- [create-otus-xtradb-cluster](roles/create-otus-xtradb-cluster) - Роль объединяющая в себе 01_tuning_OS и 02_ansible-role-XtraDB-Cluster, но почему-то падает в середине выполнения второй роли. Не стал разбираться с причинами.
+- [delete_percona](roles/delete_percona) - Удаление со всеми хвостами percona xtradb cluster, может пригодится для последующей повторной установки.
+
 
 Переменные, необходимые(желаемые) для установки кластера percona можно определить в файле [02_ansible-role-XtraDB-Cluster.yml](roles/02_ansible-role-XtraDB-Cluster.yml). При этом, описание переменных дано в файле [02_ansible-role-XtraDB-Cluster/README.md](roles/02_ansible-role-XtraDB-Cluster/README.md)
 

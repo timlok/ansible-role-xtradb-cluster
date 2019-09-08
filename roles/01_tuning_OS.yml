@@ -1,0 +1,6 @@
+- name: 01_tuning_OS
+  hosts: otusdb
+  become: true
+
+  roles:
+   - 01_tuning_OS

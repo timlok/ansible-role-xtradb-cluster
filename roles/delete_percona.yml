@@ -1,0 +1,6 @@
+- name: delete_percona
+  hosts: all
+  become: true
+
+  roles:
+   - delete_percona

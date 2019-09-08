@@ -1,0 +1,7 @@
+- name: otus-xtradb-cluster.yml
+  hosts: otusdb
+  become: true
+
+  roles:
+    - 01_tuning_OS
+    - 02_ansible-role-XtraDB-Cluster
