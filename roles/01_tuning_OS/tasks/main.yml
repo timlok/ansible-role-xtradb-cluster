@@ -1,0 +1,94 @@
+---
+- name: install epel
+  yum:
+    name:
+    - epel-release
+
+- name: install packages
+  yum:
+    name:
+      - libselinux-python
+      - vim
+      - vim-enhanced
+      - mc
+      - screen
+#      - ccze
+#      - lnav
+      - redhat-lsb-core
+      - wget
+      - yum-utils
+      - htop
+      - sudo
+#      - iftop
+      - net-tools
+#      - elinks
+#      - lynx
+      - bind-utils
+      - deltarpm
+      - lsof
+      - tree
+#      - traceroute
+      - tcpdump
+      - nmap
+      - unzip
+#      - iperf3
+#      - lbzip2
+#      - fuse-sshfs
+    state: latest
+
+- name: copy .screenrc
+  copy: src=screenrc dest=/root/.screenrc owner=root group=root mode=0600
+- name: edit bashrc, vimrc
+  shell: echo "alias vi='vim'" >> /root/.bashrc && echo "colorscheme desert" >> /etc/vimrc
+
+- name: put SELinux in permissive mode
+  selinux:
+    policy: targeted
+    state: permissive
+
+#sed -i 's/^ - update_etc_hosts/# - update_etc_hosts/g' /etc/cloud/cloud.cfg
+- name: disable update_etc_hosts module in cloud-config (comment line)
+  replace:
+    path: /etc/cloud/cloud.cfg
+    regexp: (^ - update_etc_hosts.*$)
+    replace: '#\1'
+
+- name: cloud-config.service restart
+  systemd:
+    name: cloud-config.service
+    state: restarted
+
+- name: add mappings to /etc/hosts
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {{ item.ip }} {{ item.name }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+  with_items:
+  - { name: xtradb01, ip: 10.51.21.10 }
+  - { name: xtradb02, ip: 10.51.21.11 }
+  - { name: xtradb03, ip: 10.51.21.12 }
+
+- name: change the hostname
+  hostname:
+    name={{ inventory_hostname }}
+  when:
+    ansible_fqdn != ansible_ssh_host
+
+- name: firewalld stop and disable
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+#- name: set the russian locale
+#  shell: |
+#    localedef  -i ru_RU -f UTF-8 ru_RU.UTF-8
+#    localectl set-locale LANG=ru_RU.UTF-8
+
+#  notify:
+#    - system restart
+- name: system restart
+  reboot:
+    reboot_timeout: 120
+

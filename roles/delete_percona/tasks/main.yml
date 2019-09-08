@@ -1,0 +1,6 @@
+---
+- name: delete percona
+  shell: |
+    systemctl stop mysql
+    rm -rf /var/lib/mysql /var/log/mysqld.log /etc/percona-xtradb-cluster.conf.d /root/.my.cnf
+    yum erase Percona* -y
