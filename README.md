@@ -5,7 +5,7 @@
 В каталоге [roles](roles/) (на тестовом хосте путь /home/otus/ansible/xtradb) находятся роли:
 -  [01_tuning_OS](roles/01_tuning_OS) - Предварительная настройка ОС с последующей перезагрузкой.
 - [02_ansible-role-XtraDB-Cluster](roles/02_ansible-role-XtraDB-Cluster) - Установка и настройка percona xtradb cluster.
-- [create-otus-xtradb-cluster](roles/create-otus-xtradb-cluster) - Роль объединяющая в себе 01_tuning_OS и 02_ansible-role-XtraDB-Cluster, но почему-то падает в середине выполнения второй роли. Не стал разбираться с причинами.
+- [create-otus-xtradb-cluster](roles/create-otus-xtradb-cluster.yml) - Роль объединяющая в себе 01_tuning_OS и 02_ansible-role-XtraDB-Cluster, но почему-то падает в середине выполнения второй роли. Не стал разбираться с причинами.
 - [delete_percona](roles/delete_percona) - Удаление со всеми хвостами percona xtradb cluster, может пригодится для последующей повторной установки.
 
 
